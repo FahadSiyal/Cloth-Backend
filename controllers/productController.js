@@ -9,5 +9,9 @@ const findProducts = asyncHandler(async (req, res) => {
 const createProducts = asyncHandler(async (req, res) => {
   const { name, title, desc, quantity, price, image, size, color, category } =
     req.body;
+    if(!name || !title || !quantity || !price || !size ){
+      res.status(400)
+      throw new Error('please fill all the required fields ')
+    }
     const product=Product.create()
 });
