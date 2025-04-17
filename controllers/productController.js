@@ -13,5 +13,17 @@ const createProducts = asyncHandler(async (req, res) => {
       res.status(400)
       throw new Error('please fill all the required fields ')
     }
-    const product=Product.create()
+    const product=Product.create(
+      name,
+       title,
+        desc,
+         quantity,
+          price, 
+          image,
+           size,
+            color,
+             category 
+    )
+    res.status(201).json(products)
 });
+module.exports={findProducts,createProducts}

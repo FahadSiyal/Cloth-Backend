@@ -43,7 +43,7 @@ const User = require('../models/userModel'); // without .js
 //Login User
 
  const loginUser = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+  const { email,password } = req.body;
 
   const user = userModel.findOne({ email });
 

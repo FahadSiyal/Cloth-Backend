@@ -4,6 +4,8 @@ const app=express();
 const cors=require('cors')
 const authRoutes=require('./routes/authRoutes')
 const connectDB=require('./config/db')
+const productRoutes=require('./routes/productRoutes')
+
 
 
 connectDB()
@@ -14,9 +16,13 @@ app.use(cors({
 }));
 dotenv.config()
 
+//Product Routes
+app.use('/api/products',productRoutes)
+
+//Auth Routes
 app.use('/api/auth',authRoutes)
 
-app.listen(3000,() => {
+app.listen(() => {
   console.log(`App listening on Port ${process.env.PORT || 5000}`)
 }
 )
