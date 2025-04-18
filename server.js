@@ -22,9 +22,9 @@ app.use('/api/products',productRoutes)
 //Auth Routes
 app.use('/api/auth',authRoutes)
 
-app.listen(() => {
-  console.log(`App listening on Port ${process.env.PORT || 5000}`)
-}
-)
+const PORT = process.env.PORT || 5000;
 
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on http://localhost:${PORT}`);
+});
 
