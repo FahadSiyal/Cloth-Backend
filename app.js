@@ -5,7 +5,7 @@ const cors=require('cors')
 const authRoutes=require('./routes/authRoutes')
 const connectDB=require('./config/db')
 const productRoutes=require('./routes/productRoutes')
-
+const orderRoutes=require('./routes/orderRoutes')
 
 
 connectDB()
@@ -21,6 +21,9 @@ app.use('/api/products',productRoutes)
 
 //Auth Routes
 app.use('/api/auth',authRoutes)
+
+// //Order Routes
+app.use('/api/order',orderRoutes)
 
 const PORT = process.env.PORT || 3000;
 
