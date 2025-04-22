@@ -30,7 +30,11 @@ const createProducts = asyncHandler(async (req, res) => {
   //   throw new Error('please fill all the required fields ')
   // }
   console.log("hdbvuhvd");
+<<<<<<< HEAD
+  const product = await Product.create({ name: "Fahad", title: "Fahad" });
+=======
   const product = await Product.create({ name: "Aarij", title: "Aarij" });
+>>>>>>> 7e68c57252b10131ff0d9e4a8f76719f9dd501d3
   res.json(product);
 
 });
