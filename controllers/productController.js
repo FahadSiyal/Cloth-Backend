@@ -23,15 +23,15 @@ const findProducts = asyncHandler(async (req, res) => {
 
 
 const createProducts = asyncHandler(async (req, res) => {
-  const { name, title, desc, quantity, price, image, size, color, category } =
-    req.body;
-  if(!name || !title || !quantity || !price || !size ){
-    res.status(400)
-    throw new Error('please fill all the required fields ')
-  }
+  // const { name, title, desc, quantity, price, image, size, color, category } =
+  //   req.body;
+  // if(!name || !title || !quantity || !price || !size ){
+  //   res.status(400)
+  //   throw new Error('please fill all the required fields ')
+  // }
   console.log("hdbvuhvd");
-  const product = await Product.create({ Name: "Fahad", title: "Fahad" });
-  res.json(products);
+  const product = await Product.create({ name: "Fahad", title: "Fahad" });
+  res.json(product);
 
 });
 module.exports = { findProducts, createProducts };
