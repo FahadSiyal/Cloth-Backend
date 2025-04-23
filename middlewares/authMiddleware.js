@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("express-async-handler");
 
-const authMiddleware = asyncHandler(async (req, res, next) => {
+const isLoggedIn = asyncHandler(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -25,3 +25,5 @@ const authMiddleware = asyncHandler(async (req, res, next) => {
     throw new Error("Not authorized, no token");
   }
 });
+
+module.exports=isLoggedIn 
