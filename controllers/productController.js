@@ -21,24 +21,38 @@ const findProducts = asyncHandler(async (req, res) => {
 })
 
 
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+
+  await product.remove(); 
+  res.status(200).json({ message: "Product deleted successfully" });
+});
 
 const createProducts = asyncHandler(async (req, res) => {
-  const { name, desc, price, category } =req.body;
+  const { name, desc, price, category,actualprice } =req.body;
 
   // if (name || price || desc || category === " " ) {
   //   res.status(400)
   //   throw new Error('please fill all the required fields ')
   // }
-  // const product = await Product.create({
-  //   name,
-  //   price,
-  //   desc,
-  //   category
-  // });
-  // console.log("hdbvuhvd");
+  const product = await Product.create({
+    name,
+    price,
+    desc,
+    category,
+    actualprice
+  });
+  console.log("hdbvuhvd");
 
-  const product = await Product.create({ name: "Aarij", title: "Aarij" });
+  // const product = await Product.create({ name: "Aarij", title: "Aarij" });
   res.json(product);
 
 });
-module.exports = { findProducts, createProducts };
+module.exports = { findProducts, createProducts, deleteProduct };
+

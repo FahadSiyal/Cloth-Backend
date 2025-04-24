@@ -28,6 +28,9 @@ const productSchema = mongoose.Schema({
   category: {
     type: String,
   },
+  actualprice: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Product", productSchema);
