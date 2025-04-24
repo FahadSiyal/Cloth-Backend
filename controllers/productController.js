@@ -23,18 +23,18 @@ const findProducts = asyncHandler(async (req, res) => {
 
 
 const createProducts = asyncHandler(async (req, res) => {
-  // const { name, title, desc, quantity, price, image, size, color, category } =
-  //   req.body;
-  // if(!name || !title || !quantity || !price || !size ){
+  const { name, desc, price, category } =req.body;
+
+  // if (name || price || desc || category === " " ) {
   //   res.status(400)
   //   throw new Error('please fill all the required fields ')
   // }
-  console.log("hdbvuhvd");
-<<<<<<< HEAD
-  const product = await Product.create({ name: "Fahad", title: "Fahad" });
-=======
-  const product = await Product.create({ name: "Aarij", title: "Aarij" });
->>>>>>> 7e68c57252b10131ff0d9e4a8f76719f9dd501d3
+  const product = await Product.create({
+    name,
+    price,
+    desc,
+    category
+  });
   res.json(product);
 
 });

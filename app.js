@@ -8,6 +8,8 @@ const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
 
 
+
+
 connectDB()
 app.use(express.json())
 app.use(cors({
@@ -18,6 +20,9 @@ dotenv.config()
 
 //Product Routes
 app.use('/api/products',productRoutes)
+
+
+
 
 //Auth Routes
 app.use('/api/auth',authRoutes)
