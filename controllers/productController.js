@@ -4,14 +4,15 @@ const asyncHandler = require("express-async-handler");
 const findProducts = asyncHandler(async (req, res) => {
   const productLimit = parseInt(req.query.limit) || 8;
   const productPage = parseInt(req.query.page) || 1;
-  const category=req.query.category || null;  
-  const query={}
+  const category = req.query.category; // ✅ Get category from query
+
+  const query ={}
   if(category){
-    query.category=category
-  }
+    query.category = category; // ✅ Filter by category if provided
+  } // ✅ Use category if exists
 
   const totalProducts = await Product.countDocuments(query);
-  const products = await Product.find({query})
+  const products = await Product.find(query)
     .limit(productLimit)
     .skip((productPage - 1) * productLimit);
 
@@ -23,8 +24,7 @@ const findProducts = asyncHandler(async (req, res) => {
     totalPages,
     currentPage,
   });
-})
-
+});
 
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
