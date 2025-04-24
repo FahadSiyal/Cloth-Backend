@@ -9,6 +9,8 @@ const orderRoutes=require('./routes/orderRoutes')
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); // ✅ Add this before your routes
 
+
+
 connectDB()
 app.use(express.json())
 app.use(cors({
@@ -19,6 +21,9 @@ dotenv.config()
 
 //Product Routes
 app.use('/api/products',productRoutes)
+
+
+
 
 //Auth Routes
 app.use('/api/auth',authRoutes)
