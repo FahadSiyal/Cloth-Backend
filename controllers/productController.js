@@ -4,9 +4,14 @@ const asyncHandler = require("express-async-handler");
 const findProducts = asyncHandler(async (req, res) => {
   const productLimit = parseInt(req.query.limit) || 8;
   const productPage = parseInt(req.query.page) || 1;
+  const category=req.query.category || null;  
+  const query={}
+  if(category){
+    query.category=category
+  }
 
-  const totalProducts = await Product.countDocuments();
-  const products = await Product.find({})
+  const totalProducts = await Product.countDocuments(query);
+  const products = await Product.find({query})
     .limit(productLimit)
     .skip((productPage - 1) * productLimit);
 
