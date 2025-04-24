@@ -29,12 +29,15 @@ const createProducts = asyncHandler(async (req, res) => {
   //   res.status(400)
   //   throw new Error('please fill all the required fields ')
   // }
-  const product = await Product.create({
-    name,
-    price,
-    desc,
-    category
-  });
+  // const product = await Product.create({
+  //   name,
+  //   price,
+  //   desc,
+  //   category
+  // });
+  // console.log("hdbvuhvd");
+
+  const product = await Product.create({ name: "Aarij", title: "Aarij" });
   res.json(product);
 
 });
