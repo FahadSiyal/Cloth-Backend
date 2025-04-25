@@ -4,15 +4,15 @@ const asyncHandler = require("express-async-handler");
 const findProducts = asyncHandler(async (req, res) => {
   const productLimit = parseInt(req.query.limit) || 8;
   const productPage = parseInt(req.query.page) || 1;
-  const category = req.query.category || null;
+  const category = req.query.category; // ✅ Get category from query
 
-  const query = {};
-  if (category) {
-    query.category = category;
-  }
+  const query ={}
+  if(category){
+    query.category = category; // ✅ Filter by category if provided
+  } // ✅ Use category if exists
 
   const totalProducts = await Product.countDocuments(query);
-  const products = await Product.find(query) 
+  const products = await Product.find(query)
     .limit(productLimit)
     .skip((productPage - 1) * productLimit);
 
@@ -24,6 +24,19 @@ const findProducts = asyncHandler(async (req, res) => {
     totalPages,
     currentPage,
   });
+});
+
+const deleteProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const product = await Product.findById(id);
+  if (!product) {
+    res.status(404);
+    throw new Error("Product not found");
+  }
+
+  await product.remove(); 
+  res.status(200).json({ message: "Product deleted successfully" });
 });
 
 

@@ -13,6 +13,7 @@ app.use(cookieParser()); // ✅ Add this before your routes
 
 
 connectDB()
+app.use(express.static('public'));
 app.use(express.json())
 app.use(cors({
   origin: 'http://localhost:5173', // allow Vite frontend
@@ -20,19 +21,18 @@ app.use(cors({
 }));
 dotenv.config()
 
-//Product Routes
+// Product Routes
 app.use('/api/products',productRoutes)
 
-// app.use('/api/products/:id',deleteproductRoutes)
 
 
-
-
-//Auth Routes
+// //Auth Routes
 app.use('/api/auth',authRoutes)
 
-// //Order Routes
+
+// // //Order Routes
 app.use('/api/order',orderRoutes)
+
 
 const PORT = process.env.PORT || 3000;
 
