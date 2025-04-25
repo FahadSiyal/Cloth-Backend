@@ -38,10 +38,9 @@ app.use((req, res, next) => {
 app.use('/api/auth',authRoutes)
 
 app.get('/api/profile',(req,res)=>{
-  res.json({
-    message:'Profile data'
-  })
-})
+  res.send('Profile page')
+}
+)
 // // //Order Routes
 app.use('/api/order',orderRoutes)
 
