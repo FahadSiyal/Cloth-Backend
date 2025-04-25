@@ -13,6 +13,7 @@ const deleteproductRoutes = require("./routes/deleteproductRoutes")
 
 
 connectDB()
+app.use(express.static('public'));
 app.use(express.json())
 app.use(cors({
   origin: 'http://localhost:5173', // allow Vite frontend
@@ -20,18 +21,21 @@ app.use(cors({
 }));
 dotenv.config()
 
-//Product Routes
-// app.use('/api/products',productRoutes)
+// Product Routes
+app.use('/api/products',productRoutes)
 
-// app.use('/api/products/:id',deleteproductRoutes)
+app.use('/api/products/:id',deleteproductRoutes)
 
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
+// //Auth Routes
+app.use('/api/auth',authRoutes)
 
-// // //Auth Routes
-// app.use('/api/auth',authRoutes)
-
-// // // //Order Routes
-// app.use('/api/order',orderRoutes)
+// // //Order Routes
+app.use('/api/order',orderRoutes)
 
 app.get('/',(req,res)=>{
   res.send('API is running. anf running..')
