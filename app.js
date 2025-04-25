@@ -26,7 +26,10 @@ app.use('/api/products',productRoutes)
 
 app.use('/api/products/:id',deleteproductRoutes)
 
-
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Server Error', error: err.message });
+});
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
