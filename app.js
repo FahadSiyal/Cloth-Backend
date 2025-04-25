@@ -20,22 +20,22 @@ app.use(cors({
 }));
 dotenv.config()
 
-// //Product Routes
-// app.use('/api/products',productRoutes)
+//Product Routes
+app.use('/api/products',productRoutes)
 
-// app.use('/api/products/:id',deleteproductRoutes)
+app.use('/api/products/:id',deleteproductRoutes)
 
 
 
-// // //Auth Routes
-// app.use('/api/auth',authRoutes)
+// //Auth Routes
+app.use('/api/auth',authRoutes)
 
-// // // //Order Routes
-// app.use('/api/order',orderRoutes)
+// // //Order Routes
+app.use('/api/order',orderRoutes)
 
-app.get('/',(req,res)=>{
-  res.send('API is running...')
-})
+// app.get('/',(req,res)=>{
+//   res.send('API is running...')
+// })
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
