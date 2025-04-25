@@ -8,7 +8,7 @@ const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); // ✅ Add this before your routes
-const deleteproductRoutes = require("./routes/deleteproductRoutes")
+// const deleteproductRoutes = require("./routes/deleteproductRoutes")
 
 
 
@@ -23,7 +23,7 @@ dotenv.config()
 //Product Routes
 app.use('/api/products',productRoutes)
 
-app.use('/api/products/:id',deleteproductRoutes)
+// app.use('/api/products/:id',deleteproductRoutes)
 
 
 

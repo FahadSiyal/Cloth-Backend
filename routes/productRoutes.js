@@ -1,22 +1,27 @@
-const {
-  createProducts,
-  findProducts,
-  deleteProduct
-} = require("../controllers/productController");
+
+
 
 const express = require("express");
 const router = express.Router();
+
+
+const {
+  createProducts,
+  findProducts,
+  deleteproduct
+} = require("../controllers/productController");
+
+
 
 //Finding Products
 
 router.get("/", findProducts);
 // //Creating Products
 router.post("/", createProducts);
+// //Deleting Products
+router.delete("/:id",deleteproduct)
 
 
-router.post("/", createProducts);
-
-// router.delete("/", deleteProduct);
 
 
 

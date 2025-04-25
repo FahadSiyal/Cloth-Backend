@@ -4,14 +4,15 @@ const asyncHandler = require("express-async-handler");
 const findProducts = asyncHandler(async (req, res) => {
   const productLimit = parseInt(req.query.limit) || 8;
   const productPage = parseInt(req.query.page) || 1;
-  const category=req.query.category || null;  
-  const query={}
-  if(category){
-    query.category=category
+  const category = req.query.category || null;
+
+  const query = {};
+  if (category) {
+    query.category = category;
   }
 
   const totalProducts = await Product.countDocuments(query);
-  const products = await Product.find({query})
+  const products = await Product.find(query) 
     .limit(productLimit)
     .skip((productPage - 1) * productLimit);
 
@@ -23,21 +24,9 @@ const findProducts = asyncHandler(async (req, res) => {
     totalPages,
     currentPage,
   });
-})
-
-
-const deleteProduct = asyncHandler(async (req, res) => {
-  const { id } = req.params;
-
-  const product = await Product.findById(id);
-  if (!product) {
-    res.status(404);
-    throw new Error("Product not found");
-  }
-
-  await product.remove(); 
-  res.status(200).json({ message: "Product deleted successfully" });
 });
+
+
 
 const createProducts = asyncHandler(async (req, res) => {
   const { name, desc, price, category,actualprice } =req.body;
@@ -59,5 +48,20 @@ const createProducts = asyncHandler(async (req, res) => {
   res.json(product);
 
 });
-module.exports = { findProducts, createProducts, deleteProduct };
+
+
+const deleteproduct = (async (req, res) => {
+  try {
+    const deleted = await Product.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    res.status(200).json({ message: 'Product deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+module.exports = { findProducts, createProducts , deleteproduct };
 
