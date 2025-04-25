@@ -34,7 +34,7 @@ dotenv.config()
 // app.use('/api/order',orderRoutes)
 
 app.get('/',(req,res)=>{
-  res.send('API is running...')
+  res.send('API is running. anf running..')
 })
 const PORT = process.env.PORT || 3000;
 
