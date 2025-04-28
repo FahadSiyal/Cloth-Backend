@@ -12,6 +12,8 @@ app.use(cookieParser()); // ✅ Add this before your routes
 
 
 
+app.use(cookieParser()); // ✅ Add this before your routes
+
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
