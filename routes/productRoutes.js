@@ -8,7 +8,7 @@ const router = express.Router();
 const {
   createProducts,
   findProducts,
-  deleteproduct
+  deleteProduct
 } = require("../controllers/productController");
 
 
@@ -19,7 +19,7 @@ router.get("/", findProducts);
 // //Creating Products
 router.post("/", createProducts);
 // //Deleting Products
-router.delete("/:id",deleteproduct)
+router.delete("/:id",deleteProduct)
 
 
 
