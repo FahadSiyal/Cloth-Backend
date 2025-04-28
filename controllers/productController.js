@@ -28,6 +28,7 @@ const findProducts = asyncHandler(async (req, res) => {
 
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  console.log(id);
 
   const product = await Product.findById(id);
   if (!product) {
@@ -35,9 +36,11 @@ const deleteProduct = asyncHandler(async (req, res) => {
     throw new Error("Product not found");
   }
 
-  await product.remove(); 
+  await product.deleteOne();  // ✅ instead of product.remove()
+
   res.status(200).json({ message: "Product deleted successfully" });
 });
+
 
 
 
