@@ -101,8 +101,9 @@ const LogoutUser = asyncHandler(async (req, res) => {
 
 const findAllUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
+  console.log("All users:", users);
   res.json(users);
 });
 
 
-module.exports = { LogoutUser, loginUser, registerUser , findAllUsers };
+module.exports = { LogoutUser, loginUser, registerUser ,findAllUsers };

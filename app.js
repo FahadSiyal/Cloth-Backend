@@ -7,6 +7,7 @@ const connectDB=require('./config/db')
 const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
 const cookieParser = require("cookie-parser");
+
 const Order = require("./models/orderModel");
 app.use(cookieParser()); // ✅ Add this before your routes
 // const deleteproductRoutes = require("./routes/deleteproductRoutes")
@@ -27,6 +28,11 @@ dotenv.config()
 // Product Routes
 app.use('/api/products',productRoutes)
 
+
+app.use((err, req, res, next) => {
+  console.error("Global Error:", err.stack);
+  res.status(500).json({ message: 'Internal Server Error', error: err.message });
+});
 
 
 // //Auth Routes

@@ -22,6 +22,9 @@ router.post("/", createProducts);
 router.delete("/:id",deleteProduct)
 
 
+// router.post("/", createProducts);
+
+router.delete('/:id', deleteProduct);
 
 
 
