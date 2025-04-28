@@ -16,7 +16,7 @@ router.post("/", createProducts);
 
 // router.post("/", createProducts);
 
-router.delete("/", deleteProduct);
+router.delete('/:id', deleteProduct);
 
 
 

@@ -1,8 +1,9 @@
 const Product = require("../models/productModel");
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 
 const findProducts = asyncHandler(async (req, res) => {
-  const productLimit = parseInt(req.query.limit) || 8;
+  const productLimit = parseInt(req.query.limit) || 8 ;
   const productPage = parseInt(req.query.page) || 1;
   const category = req.query.category; // ✅ Get category from query
 
@@ -26,21 +27,30 @@ const findProducts = asyncHandler(async (req, res) => {
   });
 });
 
+
 const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-
-  const product = await Product.findById(id);
-  if (!product) {
-    res.status(404);
-    throw new Error("Product not found");
+  console.log("Trying to delete product with ID:", id);
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    res.status(400);
+    throw new Error('Invalid product ID');
   }
 
-  await product.remove(); 
-  res.status(200).json({ message: "Product deleted successfully" });
+  const product = await Product.findById(id);
+
+  if (!product) {
+    res.status(404);
+    throw new Error('Product not found');
+  }
+
+  await product.deleteOne();// this line deletes it
+
+  res.status(200).json({ message: 'Product deleted successfully' });
 });
 
 const createProducts = asyncHandler(async (req, res) => {
   const { name, desc, price, category,actualprice } =req.body;
+  console.log("product data", req.body);
 
   // if (name || price || desc || category === " " ) {
   //   res.status(400)
@@ -53,7 +63,7 @@ const createProducts = asyncHandler(async (req, res) => {
     category,
     actualprice
   });
-  console.log("hdbvuhvd");
+  console.log("product created", product);
 
   // const product = await Product.create({ name: "Aarij", title: "Aarij" });
   res.json(product);
