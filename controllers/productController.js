@@ -50,6 +50,7 @@ const deleteProduct = asyncHandler(async (req, res) => {
 
 
 
+
 const createProducts = asyncHandler(async (req, res) => {
   const { name, desc, price, category,actualprice } =req.body;
   console.log("product data", req.body);
