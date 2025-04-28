@@ -1,17 +1,25 @@
+
+
+
+const express = require("express");
+const router = express.Router();
+
+
 const {
   createProducts,
   findProducts,
   deleteProduct
 } = require("../controllers/productController");
 
-const express = require("express");
-const router = express.Router();
+
 
 //Finding Products
 
 router.get("/", findProducts);
 // //Creating Products
 router.post("/", createProducts);
+// //Deleting Products
+router.delete("/:id",deleteProduct)
 
 
 // router.post("/", createProducts);

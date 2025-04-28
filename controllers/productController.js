@@ -48,6 +48,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'Product deleted successfully' });
 });
 
+
+
 const createProducts = asyncHandler(async (req, res) => {
   const { name, desc, price, category,actualprice } =req.body;
   console.log("product data", req.body);
@@ -69,5 +71,10 @@ const createProducts = asyncHandler(async (req, res) => {
   res.json(product);
 
 });
-module.exports = { findProducts, createProducts, deleteProduct };
+
+
+
+
+
+module.exports = { findProducts, createProducts , deleteProduct };
 

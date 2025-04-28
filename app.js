@@ -30,23 +30,15 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error', error: err.message });
 });
 
-app.use((req, res, next) => {
-  console.log(`${req.method} ${req.url}`);
-  next();
-});
+
 // //Auth Routes
 app.use('/api/auth',authRoutes)
 
-app.get('/api/profile',(req,res)=>{
-  res.send('Profile page')
-}
-)
+
 // // //Order Routes
 app.use('/api/order',orderRoutes)
 
-app.get('/',(req,res)=>{
-  res.send('API is running. anf running..')
-})
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

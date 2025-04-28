@@ -28,6 +28,9 @@ const productSchema = mongoose.Schema({
   category: {
     type: String,
   },
+  discount: {
+    type: String,
+  },
   actualprice: {
     type: Number,
   },
