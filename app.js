@@ -7,10 +7,10 @@ const connectDB=require('./config/db')
 const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
 const cookieParser = require("cookie-parser");
-app.use(cookieParser()); // ✅ Add this before your routes
 const deleteproductRoutes = require("./routes/deleteproductRoutes")
 
 
+app.use(cookieParser()); // ✅ Add this before your routes
 
 connectDB()
 app.use(express.static('public'));

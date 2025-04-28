@@ -3,13 +3,12 @@ const asyncHandler = require("express-async-handler");
 
 const isLoggedIn = asyncHandler(async (req, res, next) => {
   let token;
+  console.log(token);
+  console.log(process.env.JWT_SECRET);
 
-  // Check if token exists in cookies
   if (req.cookies && req.cookies.token) {
     token = req.cookies.token;
-  } 
-  // Or check Authorization header (for Bearer tokens)
-  else if (
+  } else if (
     req.headers.authorization &&
     req.headers.authorization.startsWith("Bearer")
   ) {
@@ -24,12 +23,10 @@ const isLoggedIn = asyncHandler(async (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded.id;
-   
     next();
   } catch (error) {
     res.status(401);
     throw new Error("Not authorized, token failed");
-    res.redirect("/login");
   }
 });
 
