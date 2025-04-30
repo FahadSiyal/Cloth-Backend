@@ -25,7 +25,7 @@ app.use(express.json())
 //   credentials: true               // allow cookies / auth headers
 // }));
 app.use(cors({
-  origin: 'https://e-comm-5xv9.vercel.app',
+  origin: 'https://e-comm-lime-phi.vercel.app/',
   credentials: true
 }));
 dotenv.config()
