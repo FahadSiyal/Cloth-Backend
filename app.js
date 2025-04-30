@@ -19,11 +19,11 @@ app.use(cookieParser()); // ✅ Add this before your routes
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
-app.use(cors({
-  origin: '*', // allow Vite frontend
-  // origin: 'http://localhost:5173', // allow Vite frontend
-  credentials: true               // allow cookies / auth headers
-}));
+// app.use(cors({
+//   origin: '*', // allow Vite frontend
+//   // origin: 'http://localhost:5173', // allow Vite frontend
+//   credentials: true               // allow cookies / auth headers
+// }));
 dotenv.config()
 
 // Product Routes
