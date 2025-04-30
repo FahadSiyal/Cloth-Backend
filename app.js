@@ -24,6 +24,10 @@ app.use(express.json())
 //   // origin: 'http://localhost:5173', // allow Vite frontend
 //   credentials: true               // allow cookies / auth headers
 // }));
+app.use(cors({
+  origin: 'https://e-comm-5xv9.vercel.app',
+  credentials: true
+}));
 dotenv.config()
 
 // Product Routes
