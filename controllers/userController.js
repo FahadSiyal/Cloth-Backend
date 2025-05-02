@@ -77,7 +77,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const token = generateToken(user._id);
   res.cookie("token", token, {
-    httpOnly: true,
+    httpOnly: false,
     sameSite: "strict",
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
@@ -85,6 +85,9 @@ const loginUser = asyncHandler(async (req, res) => {
   res.json({
     _id: user._id,
     email: user.email,
+    token: token,
+    username: user.username,
+    message: "Login successful",
   });
 });
 //Logout User

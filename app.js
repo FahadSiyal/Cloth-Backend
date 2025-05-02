@@ -47,7 +47,10 @@ app.use('/api/auth',authRoutes)
 // // //Order Routes
 app.use('/api/order',orderRoutes)
 
-
+app.use("/api/Checkout", async (req, res) => {
+  const Orders = await Order.find({});
+  res.json(Orders);
+});
 
 
 
