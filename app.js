@@ -21,7 +21,7 @@ app.use(express.static('public'));
 app.use(express.json())
 app.use(cors({
   // origin: 'https://ecomcloth1.netlify.app/shop',
-  origin: 'https://ecommmlast.vercel.app/', 
+  origin: 'https://e-comm-nu-ebon.vercel.app/', 
   credentials: true
   // origin: 'http://localhost:5173', // allow Vite frontend
   // credentials: true               // allow cookies / auth headers
