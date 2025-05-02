@@ -25,10 +25,10 @@ app.use(express.json())
 //   credentials: true               // allow cookies / auth headers
 // }));
 app.use(cors({
-  origin: 'https://ecomcloth1.netlify.app/shop',
+  // origin: 'https://ecomcloth1.netlify.app/shop',
+  origin: 'https://ecomcloth1.netlify.app/', 
   credentials: true
   // origin: 'http://localhost:5173', // allow Vite frontend
-  // origin: 'https://ecommfrontend-eight.vercel.app/', 
   // credentials: true               // allow cookies / auth headers
 }));
 dotenv.config()
