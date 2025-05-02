@@ -27,6 +27,9 @@ app.use(express.json())
 app.use(cors({
   origin: 'https://ecomcloth1.netlify.app/shop',
   credentials: true
+  // origin: 'http://localhost:5173', // allow Vite frontend
+  // origin: 'https://ecommfrontend-eight.vercel.app/', 
+  // credentials: true               // allow cookies / auth headers
 }));
 dotenv.config()
 
