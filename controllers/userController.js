@@ -1,79 +1,112 @@
 const asyncHandler = require("express-async-handler");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const generateToken = require("../utils/generateToken");
 const userModel = require("../models/userModel");
 const cookieParser = require("cookie-parser");
-const User = require('../models/userModel'); // without .js
-
+const User = require("../models/userModel"); // without .js
 
 //Registering New User
-  const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
-  console.log("Registering user:", {  email, password });
+const registerUser = asyncHandler(async (req, res) => {
+  const { email, password, username } = req.body;
+  console.log("Registering user:", { email, password, username });
 
-  const userExists = await User.findOne({ email });
+  const userExists = await userModel.findOne({ email });
   if (userExists) {
     res.status(400);
     throw new Error("User already exists");
   }
-  const hashedPassword = bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(password, salt);
 
-    const user = userModel.create({ email, password: hashedPassword });
-    if (user) {
-      const token = generateToken(user._id);
+  // ✅ Proper hashing with await
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  console.log("Hashed password:", hashedPassword);
 
-      res.cookie('token',token,{
-        httpOnly:true,
-        sameSite:"strict",
-        maxAge:30 * 24 * 60 * 60 * 1000,
-      })
-      res.status(201).json({
-        _id: user._id,
-        email: user.email,
-      });
-    } else {
-      res.status(400);
-      throw new Error("Invalid User Data");
-    }
+  // ✅ Make sure to await the user creation
+  const user = await userModel.create({
+    email,
+    username,
+    password: hashedPassword,
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error("Invalid user data");
+  }
+
+  // ✅ Set token and respond
+  const token = generateToken(user._id);
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  });
+
+  res.status(201).json({
+    _id: user._id,
+    email: user.email,
+    username: user.username,
   });
 });
 
+
 //Login User
 
- const loginUser = asyncHandler(async (req, res) => {
-  const { email,password } = req.body;
 
-  const user = userModel.findOne({ email });
+const loginUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
 
-  if (user) {
+  const user = await userModel.findOne({ email });
 
-    const token=generateToken(user._id)
-    res.cookie('token',token,{
-        httpOnly:true,
-        sameSite:'strict',
-        maxAge:30 * 24 * 60 * 60 * 1000,
-    })
-    res.json({
-      _id: user._id,
-      email: user.email,
-     
-    });
-  } else {
+  if (!user) {
     res.status(400);
-    throw new Error("invalid Credentials");
+    throw new Error("User not found");
   }
-});
 
+  if (!user.password) {
+    res.status(500);
+    throw new Error("User password is missing in the database");
+  }
+
+  const isMatch = await bcrypt.compare(password, user.password);
+
+  if (!isMatch) {
+    res.status(400);
+    throw new Error("Invalid credentials");
+  }
+
+  const token = generateToken(user._id);
+  res.cookie("token", token, {
+    httpOnly: false,
+    sameSite: "strict",
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+  });
+
+  res.json({
+    _id: user._id,
+    email: user.email,
+    token: token,
+    username: user.username,
+    message: "Login successful",
+  });
+});
 //Logout User
 
-  const LogoutUser= asyncHandler( async(req,res)=>{
-  res.cookie('token','',{
-    httpOnly:true,
-    sameSite:'strict',
-    expires:new Date()
-  })
-  res.status(200).json({message:"Logged out succesfully"})
-})
-module.exports={LogoutUser,loginUser,registerUser}
+const LogoutUser = asyncHandler(async (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    sameSite: "strict",
+    expires: new Date(),
+  });
+  res.status(200).json({ message: "Logged out succesfully" });
+});
+
+
+const findAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  console.log("All users:", users);
+  res.json(users);
+});
+
+
+module.exports = { LogoutUser, loginUser, registerUser ,findAllUsers };
