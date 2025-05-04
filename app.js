@@ -27,10 +27,8 @@ app.use(express.json())
 // }));
 
 app.use(cors({
-  origin: function (origin, callback) {
-    callback(null, origin); // Allow any origin
-  },
-  credentials: true
+  origin: '*',
+  credentials: false // must be false with origin: '*'
 }));
 dotenv.config()
 
