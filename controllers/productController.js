@@ -34,4 +34,4 @@ const createProducts = asyncHandler(async (req, res) => {
   res.json(products);
 
 });
-module.exports = { findProducts, createProducts };
+module.exports = { findProducts, createProducts };'''
