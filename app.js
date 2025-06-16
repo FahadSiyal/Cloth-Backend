@@ -19,17 +19,13 @@ app.use(cookieParser()); // ✅ Add this before your routes
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     callback(null, origin); // Allow any origin
-//   },
-//   credentials: true
-// }));
+
 
 app.use(cors({
-  origin: '*',
-  credentials: false // must be false with origin: '*'
+  origin: "http://localhost:5173", // or whatever frontend port
+  credentials: true
 }));
+
 dotenv.config()
 
 // Product Routes
