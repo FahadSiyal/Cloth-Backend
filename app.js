@@ -23,8 +23,8 @@ app.use(express.json())
 
 
 app.use(cors({
-  origin: "http://localhost:5173",  // your frontend
-  credentials: true,                // allow cookies
+  origin: "http://localhost:5173", // or whatever frontend port
+  credentials: true             // allow cookies
 }));
 dotenv.config()
 
