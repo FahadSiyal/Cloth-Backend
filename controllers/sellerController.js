@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const Seller = require('../models/sellerModel');
 const User = require('../models/userModel');
+const generateToken = require("../utils/generateToken");
+const bcrypt = require("bcryptjs");
 
 // @desc    Register or upgrade to seller
 // @route   POST /api/sellers/register
@@ -32,7 +34,7 @@ const registerSeller = asyncHandler(async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     user = await User.create({
-      name,
+     username: name,
       email,
       password: hashedPassword,
       role: 'seller',
@@ -68,6 +70,14 @@ const registerSeller = asyncHandler(async (req, res) => {
     accountNumber,
     bankAccountTitle,
   });
+  console.log(seller)
+    // ✅ Set token and respond
+    const token = generateToken(seller._id);
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    });
 
   res.status(201).json({
     message: 'Seller account created successfully',

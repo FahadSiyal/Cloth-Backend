@@ -15,3 +15,5 @@ router.get('/',getAllSellers)
 router.put('/',updateSeller)
 
 module.exports=router;
+
+//Localhost:3000/api/seller/register
