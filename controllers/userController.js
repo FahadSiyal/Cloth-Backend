@@ -76,11 +76,13 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 
   const token = generateToken(user._id);
-  res.cookie("token", token, {
-    httpOnly: false,
-    sameSite: "strict",
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-  });
+res.cookie("token", token, {
+  httpOnly: true,        // ✅ Secure against JS access
+  secure: false,         // ❌ Set to true in production (HTTPS)
+  sameSite: "lax",       // ✅ Use "lax" or "none" when cross-origin
+  maxAge: 30 * 24 * 60 * 60 * 1000,
+});
+  console.log(token)
 
   res.json({
     _id: user._id,

@@ -15,7 +15,7 @@ app.use(cookieParser()); // ✅ Add this before your routes
   
 
 
-app.use(cookieParser()); // ✅ Add this before your routes
+
 
 connectDB()
 app.use(express.static('public'));
@@ -23,10 +23,9 @@ app.use(express.json())
 
 
 app.use(cors({
-  origin: "http://localhost:5173", // or whatever frontend port
-  credentials: true
+  origin: "http://localhost:5173",  // your frontend
+  credentials: true,                // allow cookies
 }));
-
 dotenv.config()
 
 // Product Routes
