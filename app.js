@@ -20,7 +20,8 @@ connectDB()
 app.use(express.static('public'));
 app.use(express.json())
 app.use(cors({
-  origin: 'https://ecommfrontend-eight.vercel.app/', 
+  // origin: 'https://ecommfrontend-eight.vercel.app/', 
+  origin: 'http://localhost:5173', 
   credentials: true               
 }));
 dotenv.config()
