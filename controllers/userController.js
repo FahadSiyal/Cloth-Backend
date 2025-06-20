@@ -56,6 +56,11 @@ const registerUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Email and password are required");
+  }
+
   const user = await userModel.findOne({ email });
 
   if (!user) {
@@ -77,15 +82,18 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const token = generateToken(user._id);
   res.cookie("token", token, {
-    httpOnly: false,
-    sameSite: "strict",
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });
+  console.log(token ,"Token");
+  
 
   res.json({
     _id: user._id,
     email: user.email,
-    token: token,
+    token,
     username: user.username,
     message: "Login successful",
   });
