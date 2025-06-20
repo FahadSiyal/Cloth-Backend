@@ -3,6 +3,7 @@ const dotenv=require('dotenv')
 const app=express();
 const cors=require('cors')
 const authRoutes=require('./routes/authRoutes')
+const sellerRoutes=require('./routes/sellerAuthRoutes')
 const connectDB=require('./config/db')
 const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
@@ -14,11 +15,13 @@ app.use(cookieParser()); // ✅ Add this before your routes
   
 
 
-app.use(cookieParser()); // ✅ Add this before your routes
+
 
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
+
+
 app.use(cors({
   // origin: 'https://ecommfrontend-eight.vercel.app/', 
   origin: 'http://localhost:5173', 
@@ -38,6 +41,9 @@ app.use((err, req, res, next) => {
 
 // //Auth Routes
 app.use('/api/auth',authRoutes)
+
+//SellerAuth Routes
+app.use('/api/seller',sellerRoutes)
 
 
 // // //Order Routes
