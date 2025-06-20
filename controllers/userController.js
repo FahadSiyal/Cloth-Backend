@@ -20,7 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
   // ✅ Proper hashing with await
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
-  console.log("Hashed password:", hashedPassword);
+  // console.log("Hashed password:", hashedPassword);
 
   // ✅ Make sure to await the user creation
   const user = await userModel.create({
@@ -36,11 +36,13 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // ✅ Set token and respond
   const token = generateToken(user._id);
+  // console.log("Generated token:", token);
   res.cookie("token", token, {
     httpOnly: true,
-    sameSite: "strict",
+    sameSite: "",
     maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
   });
+  // console.log("Cookie set with token");
 
   res.status(201).json({
     _id: user._id,
@@ -77,7 +79,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const token = generateToken(user._id);
   res.cookie("token", token, {
-    httpOnly: false,
+    httpOnly: true,
     sameSite: "strict",
     maxAge: 30 * 24 * 60 * 60 * 1000,
   });

@@ -3,9 +3,7 @@ const asyncHandler = require("express-async-handler");
 
 const isLoggedIn = asyncHandler(async (req, res, next) => {
   let token;
-  console.log(token);
-  console.log(process.env.JWT_SECRET);
-
+ 
   if (req.cookies && req.cookies.token) {
     token = req.cookies.token;
   } else if (
@@ -17,7 +15,7 @@ const isLoggedIn = asyncHandler(async (req, res, next) => {
 
   if (!token) {
     res.status(401);
-    throw new Error("Not authorized, no token");
+    throw new Error("Please Complete your Authentication First - Not authorized, no token");
   }
 
   try {
