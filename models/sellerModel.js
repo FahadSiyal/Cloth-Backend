@@ -13,7 +13,10 @@ const sellerSchema = mongoose.Schema(
     businessEmail: String,
     phone: String,
     businessAddress: String,
-
+    password: {
+      type: String,
+      required: true,
+    },
     //Banking Details
     CNIC: String,
     bankName: String,

@@ -3,6 +3,7 @@ const {
   getAllSellers,
   getSellerById,
   updateSeller,
+  loginSeller
 } = require("../controllers/sellerController");
 
 const express=require('express')
@@ -10,6 +11,7 @@ const express=require('express')
 const router=express.Router();
 
 router.post('/register',registerSeller)
+router.post('/login',loginSeller)
 router.get('/allsellers',getAllSellers)
 router.get('/',getAllSellers)
 router.put('/',updateSeller)
