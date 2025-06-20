@@ -70,6 +70,7 @@ const registerSeller = asyncHandler(async (req, res) => {
     accountNumber,
     bankAccountTitle,
   });
+  console.log(user)
   console.log(seller)
     // ✅ Set token and respond
     const token = generateToken(seller._id);
