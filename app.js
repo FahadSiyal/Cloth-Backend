@@ -3,6 +3,7 @@ const dotenv=require('dotenv')
 const app=express();
 const cors=require('cors')
 const authRoutes=require('./routes/authRoutes')
+const sellerRoutes=require('./routes/sellerAuthRoutes')
 const connectDB=require('./config/db')
 const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
@@ -14,20 +15,16 @@ const Order = require("./models/orderModel");
   
 
 
-app.use(cookieParser()); // ✅ Add this before your routes
+
 
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     callback(null, origin); // Allow any origin
-//   },
-//   credentials: true
-// }));
+
+
 app.use(cors({
-  origin: '*',
-  credentials: false // Not needed if withCredentials is false, but safe to keep it aligned
+  origin: "http://localhost:5173", // or whatever frontend port
+  credentials: true             // allow cookies
 }));
 dotenv.config()
 
@@ -43,6 +40,9 @@ app.use('/api/products',productRoutes)
 
 // //Auth Routes
 app.use('/api/auth',authRoutes)
+
+//SellerAuth Routes
+app.use('/api/seller',sellerRoutes)
 
 
 // // //Order Routes
