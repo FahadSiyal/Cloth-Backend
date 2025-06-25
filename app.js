@@ -16,12 +16,12 @@ app.use(cookieParser()); // ✅ Add this before your routes
 
 
 
-
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
 
 
+app.use(cookieParser()); // ✅ Add this before your routes
 app.use(cors({
   // origin: 'https://ecommfrontend-eight.vercel.app/', 
   origin: 'http://localhost:5173', 
