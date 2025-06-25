@@ -174,6 +174,7 @@ const updateSeller = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Seller not found");
   }
+  //k
 
   // (Optional) Check if req.user._id === seller.user
 
