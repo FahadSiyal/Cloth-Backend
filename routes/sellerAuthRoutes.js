@@ -3,6 +3,7 @@ const {
   getAllSellers,
   getSellerById,
   updateSeller,
+  loginSeller
 } = require("../controllers/sellerController");
 const isLoggedIn = require("../middlewares/authMiddleware");
 const express=require('express')
