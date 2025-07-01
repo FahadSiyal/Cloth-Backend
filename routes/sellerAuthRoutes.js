@@ -10,8 +10,9 @@ const express=require('express')
 
 const router=express.Router();
 
-router.post('/register',isLoggedIn,registerSeller)
+router.post('/register',registerSeller)
 router.get('/allsellers',getAllSellers)
+router.post('/login',loginSeller)
 router.get('/',getAllSellers)
 router.put('/',updateSeller)
 
