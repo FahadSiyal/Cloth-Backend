@@ -1,21 +1,23 @@
+const express = require("express")
 const {
   registerSeller,
   getAllSellers,
   getSellerById,
+  loginSeller,
   updateSeller,
-  loginSeller
-} = require("../controllers/sellerController");
-const isLoggedIn = require("../middlewares/authMiddleware");
-const express=require('express')
+  updateSellerApproval,
+} = require("../controllers/sellerController")
 
-const router=express.Router();
+const router = express.Router()
 
-router.post('/register',registerSeller)
-router.get('/allsellers',getAllSellers)
-router.post('/login',loginSeller)
-router.get('/',getAllSellers)
-router.put('/',updateSeller)
+// Public routes
+router.post("/register", registerSeller)
+router.post("/login", loginSeller)
 
-module.exports=router;
 
-//Localhost:3000/api/seller/register
+router.get("/", getAllSellers)
+router.get("/:id", getSellerById)
+router.patch("/:id/approval", updateSellerApproval) // New route for approval
+router.put("/:id", updateSeller)
+
+module.exports = router
