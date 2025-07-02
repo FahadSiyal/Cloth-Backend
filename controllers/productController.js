@@ -10,16 +10,31 @@ const mongoose = require("mongoose");
 
 
 const findProducts = asyncHandler(async (req, res) => {
-  const productLimit = parseInt(req.query.limit) || 30 ;
+  const productLimit = parseInt(req.query.limit) || 30;
   const productPage = parseInt(req.query.page) || 1;
-  const category = req.query.category; // ✅ Get category from query
 
-  const query ={}
-  if(category){
-    query.category = category; // ✅ Filter by category if provided
-  } // ✅ Use category if exists
+  const category = req.query.category;
+  const search = req.query.search;
+
+  const query = {};
+
+  // Filter by category if provided
+  if (category) {
+    query.category = category;
+  }
+
+  // Filter by search if provided
+  if (search) {
+    query.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { desc: { $regex: search, $options: "i" } },
+      // optionally match brand or other fields too:
+      { brand: { $regex: search, $options: "i" } },
+    ];
+  }
 
   const totalProducts = await Product.countDocuments(query);
+
   const products = await Product.find(query)
     .limit(productLimit)
     .skip((productPage - 1) * productLimit);
@@ -31,8 +46,10 @@ const findProducts = asyncHandler(async (req, res) => {
     products,
     totalPages,
     currentPage,
+    totalProducts,
   });
 });
+
 
 
 const deleteProduct = asyncHandler(async (req, res) => {
