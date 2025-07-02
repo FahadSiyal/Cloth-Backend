@@ -9,8 +9,8 @@ const productRoutes=require('./routes/productRoutes')
 const orderRoutes=require('./routes/orderRoutes')
 const cookieParser = require("cookie-parser");
 
-const Order = require("./models/orderModel");
 app.use(cookieParser()); // ✅ Add this before your routes
+const Order = require("./models/orderModel");
 // const deleteproductRoutes = require("./routes/deleteproductRoutes")
   
 
@@ -30,8 +30,6 @@ app.use(cors({
 }));
 dotenv.config()
 
-// Product Routes
-app.use('/api/products',productRoutes)
 
 
 app.use((err, req, res, next) => {
@@ -39,6 +37,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error', error: err.message });
 });
 
+// Product Routes
+app.use('/api/products',productRoutes)
 
 // //Auth Routes
 app.use('/api/auth',authRoutes)
@@ -49,6 +49,8 @@ app.use('/api/seller',sellerRoutes)
 
 // // //Order Routes
 app.use('/api/order',orderRoutes)
+
+// app.use("/api/contact",contactRoutes);
 
 app.use("/api/Checkout", async (req, res) => {
   const Orders = await Order.find({});
