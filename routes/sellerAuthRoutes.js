@@ -5,13 +5,12 @@ const {
   updateSeller,
   loginSeller
 } = require("../controllers/sellerController");
-
+const isLoggedIn = require("../middlewares/authMiddleware");
 const express=require('express')
 
 const router=express.Router();
 
-router.post('/register',registerSeller)
-router.post('/login',loginSeller)
+router.post('/register',isLoggedIn,registerSeller)
 router.get('/allsellers',getAllSellers)
 router.get('/',getAllSellers)
 router.put('/',updateSeller)

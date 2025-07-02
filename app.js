@@ -16,14 +16,15 @@ const Order = require("./models/orderModel");
 
 
 
-
 connectDB()
 app.use(express.static('public'));
 app.use(express.json())
 
 
+app.use(cookieParser()); // ✅ Add this before your routes
 app.use(cors({
-  origin: "http://localhost:5173", // or whatever frontend port
+  // origin: "https://merabrandfrontend.vercel.app/", // or whatever frontend port
+  origin: "https://e-comm-wt67.vercel.app/", // or whatever frontend port
   credentials: true             // allow cookies
 }));
 dotenv.config()
